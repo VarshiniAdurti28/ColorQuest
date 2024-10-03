@@ -2,16 +2,16 @@
   //chroma.js library for the conversions
   import chroma from 'chroma-js';
 
-  let selectedCol ="#4340a3"; 
+  let selectedCol ="#522828"; 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
 
 
  
   $: {
-
+  
   //HEX: Our selected Color is in Hex
-  hexCol= selectedCol;
+  hexCol= chroma(selectedCol).hex();
 
   //RGB
   let rgbColor = chroma(selectedCol).rgb(); 
@@ -22,13 +22,14 @@
   cmykCol = `${Math.round(cmykColor[0] * 100)}%, ${Math.round(cmykColor[1] * 100)}%, ${Math.round(cmykColor[2] * 100)}%, ${Math.round(cmykColor[3] * 100)}%`;
   }
 
-   // HSL
-  let hslColor = chroma(selectedCol).hsl(); 
-  hslCol = `${Math.round(hslCol[0])}°, ${Math.round(hslCol[1] * 100)}%, ${Math.round(hslCol[2] * 100)}%`;
-
   // HSV
   let hsvColor = chroma(selectedCol).hsv();
   hsvCol = `${Math.round(hsvColor[0])}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
+
+
+  // HSL
+  let hslColor = chroma(selectedCol).hsl(); 
+  hslCol = `${Math.round(hslColor[0])}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
 </script>
 
@@ -39,12 +40,13 @@
   .colors{
     display: flex;
     flex-direction: row;
-    /* background-color: green; */
+ 
     height: 150px;
   }
 
   .dispColor{
-    background-color: var(--pick-color);
+    /* used css variable to link the selected Color */
+    background-color: var(--pick-color); 
     width: 30%;
     
   }
@@ -93,38 +95,41 @@
   <div class="colorbar">
     <div class="eachInp">
       <label> HEX
-        <input type="text" bind:value = {hexCol}>
+        <input type="text" bind:this = {selectedCol} value = {hexCol} on:input={()=> selectedCol= hexCol}>
       </label>
     </div>
     
+   
+    <div class="eachInp">
+      <label> RGB
+        <input type="text" bind:this = {selectedCol} value={rgbCol} on:input={()=> selectedCol= rgbCol}>
+      </label>
+  
+    </div>
+  
+
+    <div class="eachInp">
+    <label> CMYK
+      <input type="text" bind:this = {selectedCol} value={cmykCol} on:input={()=> selectedCol= cmykCol}>
+    </label>
+    </div>
+
     <div class="eachInp">
       <label> HSV
-        <input type="text" bind:value = {hsvCol}>
+        <input type="text" bind:this = {selectedCol} value={hsvCol} on:input={()=> selectedCol= hsvCol}>
       </label>
     </div>
+
     
 
     <div class="eachInp">
       <label> HSL
-        <input type="text" bind:value = {hslCol} >
+        <input type="text" bind:this = {selectedCol} value={hslCol} on:input={()=> selectedCol= hslCol}>
       </label>
     </div>
+
+
     
-
-    <div class="eachInp">
-    <label> CMYK
-      <input type="text" bind:value = {cmykCol}>
-    </label>
-    </div>
-
-
-    <div class="eachInp">
-    <label> RGB
-      <input type="text" bind:value = {rgbCol}>
-    </label>
-
-    </div>
-
   
    
 
