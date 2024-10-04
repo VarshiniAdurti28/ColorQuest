@@ -2,10 +2,22 @@
   //chroma.js library for the conversions
   import chroma from 'chroma-js';
 
-  let selectedCol ="black"; 
+  let selectedCol ="#ff0000"; 
+  let deg= 0;
+
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
-  //comverting all values to hex for uniformity
+
+
+  function handleDeg(e){
+    deg= e.target.value;
+    console.log(deg);
+    const hslValues = hslCol.split(',').map(v => parseFloat(v.trim()));
+    
+    selectedCol = chroma.hsl(deg, hslValues[1] / 100, hslValues[2] / 100).hex();
+
+  }
+  //converting all values to hex for uniformity
   function handleHex(e) {
     selectedCol = e.target.value;
   }
@@ -85,6 +97,20 @@
 
   }
 
+  .hueCont{
+    margin: 20px;
+    text-align: center;
+  }
+
+  .hueSlider{
+    border-width: 5px;
+    border-radius: 10px;
+    -webkit-appearance: none;
+    height: 15px;
+    width: 350px;
+    background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%));
+  }
+
 
   .eachInp{
     padding: 20px;
@@ -99,6 +125,18 @@
   cursor: pointer;
  }
 
+/* styling the handle or the thumb of the slider */
+ .hueSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+ }
+
 </style>
 
 
@@ -110,10 +148,16 @@
     <div class= "dispColor" style= "--pick-color: {selectedCol}">
       
     </div>
-    <p>You have selected {selectedCol}</p>
+    <!-- A test para -->
+    <!-- <p>You have selected {selectedCol}</p> -->
     <div>
       
     </div>
+  </div>
+
+  <!-- implementing the hue slider  -->
+  <div class="hueCont">
+    <input type="range" min="0" max="360" value={deg} class="hueSlider" on:input={handleDeg}>
   </div>
   
 
