@@ -1,12 +1,12 @@
 <script>
   //chroma.js library for the conversions
   import chroma from 'chroma-js';
-  import { onMount } from 'svelte';
+
 
   let selectedCol ="#ff0000"; 
   let box, sat, val ;
   
-  let  deg= 0;
+  $: deg= 0;
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
@@ -32,9 +32,10 @@
     sat = Math.round((x / box.width) * 100);
     val = Math.round(((box.height - y) / box.height) * 100);
 
+    
     selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
 
-    console.log(deg, sat, val, selectedCol);
+    // console.log(deg, sat, val, selectedCol);
 
   }
 
@@ -80,6 +81,7 @@
 
   // HSV (Black led to NaN value for H: hence that has been taken careof)
   let hsvColor = chroma(selectedCol).hsv();
+
   hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : deg)}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
 
 
@@ -95,86 +97,7 @@
 
 
 <style>
-  .colors{
-    display: flex;
-    flex-direction: row;
- 
-    height: 150px;
-  }
-
-  .dispColor{
-    /* used css variable to link the selected Color */
-    background-color: var(--pick-color); 
-    width: 30%;
-    
-  }
-
-
-  .colorbar{
-   display: flex;
-   flex-direction: column;
-    align-items: center;
-
-
-    padding: 50px;
-
-  }
-
-  .hueCont{
-    margin: 20px;
-    text-align: center;
-  }
-
-  .hueSlider{
-    border-width: 5px;
-    border-radius: 10px;
-    -webkit-appearance: none;
-    height: 15px;
-    width: 350px;
-    background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%));
-  }
-
-
-  .eachInp{
-    padding: 20px;
-    
-  }
-
-  input{
-    width: 300px;
-  }
-
- label{
-  cursor: pointer;
- }
-
-/* styling the handle or the thumb of the slider */
- .hueSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background-color: rgb(0, 0, 0);
-  border-radius: 50%;
-
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-
- }
-
-
- .GradSelector{
-  width: 400px;
-  height: 146px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
-
-  margin-left: 15px;
-  margin-right: 15px;
- }
-
-
- 
-
+  @import './style.css';
 </style>
 
 
@@ -189,7 +112,7 @@
     </div>
 
     <!-- Saturation/value picker -->
-    <canvas class= "GradSelector" bind:this={box} on:mousedown= {getCoordinates}>
+    <canvas class= "GradSelector" style= "--grad-color: {deg}" bind:this={box} on:mousedown= {getCoordinates}>
       
     </canvas>
   </div>
