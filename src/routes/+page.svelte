@@ -1,9 +1,12 @@
 <script>
   //chroma.js library for the conversions
   import chroma from 'chroma-js';
+  import { onMount } from 'svelte';
 
   let selectedCol ="#ff0000"; 
-  let deg= 0;
+  let box, sat, val ;
+  
+  let  deg= 0;
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
@@ -11,12 +14,32 @@
 
   function handleDeg(e){
     deg= e.target.value;
-    console.log(deg);
+    // console.log(deg);
     const hslValues = hslCol.split(',').map(v => parseFloat(v.trim()));
     
     selectedCol = chroma.hsl(deg, hslValues[1] / 100, hslValues[2] / 100).hex();
+  }
+
+
+  function getCoordinates(e){
+    //X axis gives ssaturation and Y axis gives value in HSV
+    const rect= box.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top ;
+
+    //Calculating saturation and value based on x and y and adjusting them
+    //to lie between 0% and 100%
+    sat = Math.round((x / box.width) * 100);
+    val = Math.round(((box.height - y) / box.height) * 100);
+
+    selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
+
+    console.log(deg, sat, val, selectedCol);
 
   }
+
+
+
   //converting all values to hex for uniformity
   function handleHex(e) {
     selectedCol = e.target.value;
@@ -57,12 +80,12 @@
 
   // HSV (Black led to NaN value for H: hence that has been taken careof)
   let hsvColor = chroma(selectedCol).hsv();
-  hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : hsvColor[0])}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
+  hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : deg)}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
 
 
   // HSL (Black led to NaN value for H: hence that has been taken careof)
   let hslColor = chroma(selectedCol).hsl(); 
-  hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : hslColor[0])}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
+  hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : deg)}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
   } 
 
@@ -137,6 +160,21 @@
 
  }
 
+
+ .GradSelector{
+  width: 400px;
+  height: 146px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+
+  margin-left: 15px;
+  margin-right: 15px;
+ }
+
+
+ 
+
 </style>
 
 
@@ -147,17 +185,18 @@
     <!-- A div to display what color we have chosen! -->
     <div class= "dispColor" style= "--pick-color: {selectedCol}">
       
+    
     </div>
-    <!-- A test para -->
-    <!-- <p>You have selected {selectedCol}</p> -->
-    <div>
+
+    <!-- Saturation/value picker -->
+    <canvas class= "GradSelector" bind:this={box} on:mousedown= {getCoordinates}>
       
-    </div>
+    </canvas>
   </div>
 
   <!-- implementing the hue slider  -->
   <div class="hueCont">
-    <input type="range" min="0" max="360" value={deg} class="hueSlider" on:input={handleDeg}>
+    <input type="range" min="0" max="360" bind:value={deg} class="hueSlider" on:input={handleDeg}>
   </div>
   
 
