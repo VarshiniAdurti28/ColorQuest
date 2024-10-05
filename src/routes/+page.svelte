@@ -6,7 +6,7 @@
   let selectedCol ="#ff0000"; 
   let box, sat, val ;
   
-  $: deg= 0;
+  let deg= 0;
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
@@ -89,6 +89,8 @@
   let hslColor = chroma(selectedCol).hsl(); 
   hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : deg)}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
+
+ 
   } 
 
 </script>
@@ -100,35 +102,37 @@
   @import './style.css';
 </style>
 
-
-
-
-<div class="cont">
+<div class= "colorPicker">
   <div class= "colors">
     <!-- A div to display what color we have chosen! -->
     <div class= "dispColor" style= "--pick-color: {selectedCol}">
       
-    
     </div>
 
     <!-- Saturation/value picker -->
-    <canvas class= "GradSelector" style= "--grad-color: {deg}" bind:this={box} on:mousedown= {getCoordinates}>
+    <canvas class= "GradSelector" style= "--grad-color: {deg}" bind:this={box} on:mouseup= {getCoordinates}>
       
     </canvas>
   </div>
 
-  <!-- implementing the hue slider  -->
+  
+    <!-- implementing the hue slider  -->
   <div class="hueCont">
     <input type="range" min="0" max="360" bind:value={deg} class="hueSlider" on:input={handleDeg}>
   </div>
   
 
-  <div class="colorbar">
-    <div class="eachInp">
+  <div class= "HexCont">
+    <div class="Hex eachInp">
       <label> HEX
         <input type="text" value = {hexCol} on:input={handleHex}>
       </label>
     </div>
+  </div>
+  
+
+
+  <div class="colorbar">
     
    
     <div class="eachInp">
@@ -163,6 +167,10 @@
     
   
    
-
   </div>
+  
+
+ 
+
 </div>
+ 
