@@ -7,10 +7,19 @@
   let box, sat, val ;
   
   let deg= 0;
+  let isDragging = 0;
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
 
+  function Enable(){
+    isDragging = 1;
+  }
+
+  function Disable(){
+    isDragging = 0;
+  }
+  
 
   function handleDeg(e){
     deg= e.target.value;
@@ -22,7 +31,8 @@
 
 
   function getCoordinates(e){
-    //X axis gives ssaturation and Y axis gives value in HSV
+    if(!isDragging)return ;
+    //X axis gives saturation and Y axis gives value in HSV
     const rect= box.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top ;
@@ -58,16 +68,19 @@
   function handleHsl(e) {
     const hslValues = e.target.value.split(',').map(v => parseFloat(v.trim()));
     selectedCol = chroma.hsl(hslValues[0], hslValues[1] / 100, hslValues[2] / 100).hex(); 
+    deg = hslValues[0];
   }
 
   function handleHsv(e) {
     const hsvValues = e.target.value.split(',').map(v => parseFloat(v.trim()));
-    selectedCol = chroma.hsv(hsvValues[0], hsvValues[1] / 100, hsvValues[2] / 100).hex(); 
+    selectedCol = chroma.hsv(hsvValues[0], hsvValues[1] / 100, hsvValues[2] / 100).hex();
+    deg = hsvValues[0]; 
   }
 
  
   $: {
    
+  
  
   hexCol= selectedCol;
   //RGB
@@ -81,7 +94,6 @@
 
   // HSV (Black led to NaN value for H: hence that has been taken careof)
   let hsvColor = chroma(selectedCol).hsv();
-
   hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : deg)}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
 
 
@@ -89,10 +101,11 @@
   let hslColor = chroma(selectedCol).hsl(); 
   hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : deg)}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
-
+    
  
   } 
 
+ 
 </script>
 
 
@@ -103,6 +116,7 @@
 </style>
 
 <div class= "colorPicker">
+  <h1>Color Picker</h1>
   <div class= "colors">
     <!-- A div to display what color we have chosen! -->
     <div class= "dispColor" style= "--pick-color: {selectedCol}">
@@ -110,7 +124,12 @@
     </div>
 
     <!-- Saturation/value picker -->
-    <canvas class= "GradSelector" style= "--grad-color: {deg}" bind:this={box} on:mouseup= {getCoordinates}>
+    <!-- Adding width height attributes describes the internal size of the canvas,
+     When not specified box.width, box.height takes up the default width height of the canvas,
+     and not the ones specified in css -->
+
+     <!-- Handling drag selector using mousedown, mouseup, mousemove options -->
+    <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {deg}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
       
     </canvas>
   </div>

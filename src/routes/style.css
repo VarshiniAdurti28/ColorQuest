@@ -1,15 +1,16 @@
 .colors{
   display: flex;
   flex-direction: row;
-  margin-bottom: 100px;
-  height: 150px;
+  margin-bottom: 50px;
+  height: 250px;
+ 
 }
 
 .dispColor{
   /* used css variable to link the selected Color */
   background-color: var(--pick-color); 
-  width: 204px;
-  height: 228px;
+  width: 200px;
+  height: 250px;
   
 }
 
@@ -86,8 +87,7 @@ height: 20px;
 
 
 .GradSelector{
-  width: 446.4px;
-  height: 228px;
+  
  
  
   background: linear-gradient(to top, black, transparent), 
