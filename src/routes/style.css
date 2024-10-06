@@ -20,11 +20,7 @@
  flex-direction: row;
   justify-content: space-around;
 
- 
-
 }
-
-
 
 
 .hueCont{
@@ -39,6 +35,7 @@
   -webkit-appearance: none;
   height: 15px;
   width: 350px;
+  /* Colorful background for the hueSlider, just like the Google Color picker */
   background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%));
 }
 
@@ -88,14 +85,30 @@ height: 20px;
 
 .GradSelector{
   
- 
- 
   background: linear-gradient(to top, black, transparent), 
               linear-gradient(to right, white, hsl(var(--grad-color), 100%, 50%));
 
 }
 
+
+.GradSelector:active{
+  cursor: pointer;
+}
+
 .HexCont{
   display: flex;
   justify-content: center;
+}
+
+
+@media (max-width: 1500px){
+  
+  .eachInp{
+    width: 150px;
+    margin-left: 0px;
+  }
+
+  input{
+    width: 150px;
+  }
 }

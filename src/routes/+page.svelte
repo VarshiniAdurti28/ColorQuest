@@ -3,6 +3,7 @@
   import chroma from 'chroma-js';
 
 
+  // initially set to red 
   let selectedCol ="#ff0000"; 
   let box, sat, val ;
   
@@ -45,7 +46,7 @@
     
     selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
 
-    // console.log(deg, sat, val, selectedCol);
+  
 
   }
 
@@ -101,8 +102,6 @@
   let hslColor = chroma(selectedCol).hsl(); 
   hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : deg)}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
-    
- 
   } 
 
  
