@@ -9,6 +9,9 @@
   
   let deg= 0;
   let isDragging = 0;
+  let hsvColor=[];
+  let hslColor=[];
+  
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
@@ -94,15 +97,17 @@
   
 
   // HSV (Black led to NaN value for H: hence that has been taken careof)
-  let hsvColor = chroma(selectedCol).hsv();
-  hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : deg)}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
+  hsvColor = chroma(selectedCol).hsv();
+  hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : hsvColor[0])}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
 
 
   // HSL (Black led to NaN value for H: hence that has been taken careof)
-  let hslColor = chroma(selectedCol).hsl(); 
-  hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : deg)}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
+  hslColor = chroma(selectedCol).hsl(); 
+  hslCol = `${Math.round(isNaN(hslColor[0]) ? 0 : hslColor[0])}°, ${Math.round(hslColor[1] * 100)}%, ${Math.round(hslColor[2] * 100)}%`;
 
   } 
+
+
 
  
 </script>
@@ -128,7 +133,7 @@
      and not the ones specified in css -->
 
      <!-- Handling drag selector using mousedown, mouseup, mousemove options -->
-    <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {deg}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
+    <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
       
     </canvas>
   </div>
