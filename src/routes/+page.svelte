@@ -16,8 +16,13 @@
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
 
-  function Enable(){
+  function Enable(e){
     isDragging = 1;
+
+
+    //Calling getCoordinates(e) here too so as to get (saturation, value) values on single mouse clicks
+    //or else it is called only onmousemove: which is the drag option
+    getCoordinates(e);
   }
 
   function Disable(){

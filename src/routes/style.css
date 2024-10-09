@@ -1,9 +1,11 @@
 .colors{
   display: flex;
   flex-direction: row;
-  margin-bottom: 50px;
+
   height: 250px;
  
+
+  margin: 50px;
 }
 
 .dispColor{
@@ -111,4 +113,9 @@ height: 20px;
   input{
     width: 150px;
   }
+}
+
+
+h1{
+  text-align: center;
 }
