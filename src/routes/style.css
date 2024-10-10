@@ -1,11 +1,19 @@
+
+body{
+  display: flex;
+  align-items: center;
+
+}
+
+
 .colors{
   display: flex;
   flex-direction: row;
-
+  justify-content: center;
   height: 250px;
  
 
-  margin: 50px;
+  margin: 20px;
 }
 
 .dispColor{
@@ -105,17 +113,25 @@ height: 20px;
 
 @media (max-width: 1500px){
   
-  .eachInp{
-    width: 150px;
-    margin-left: 0px;
+  /* CSS Grid used on small window size */
+  .colorbar{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    grid-auto-rows: minmax(100px, auto);
   }
 
+
+  .eachInp{
+    margin: 10px;
+  }
   input{
-    width: 150px;
+    width: 200px;
   }
 }
 
 
 h1{
   text-align: center;
+  margin-bottom: 5px;
 }
