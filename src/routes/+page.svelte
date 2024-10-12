@@ -49,8 +49,11 @@
 
     //Calculating saturation and value based on x and y and adjusting them
     //to lie between 0% and 100%
-    sat = Math.round((x / box.width) * 100);
-    val = Math.round(((box.height - y) / box.height) * 100);
+
+    //Gradient color vanishes or glitches when
+    //sat reaches 0%(white) or val becomes < 5% (black) hence we adjust using MathMax accordingly
+    sat =  Math.max(1,Math.round((x / box.width) * 100));
+    val = Math.max(5, Math.round(((box.height - y) / box.height) * 100));
 
     
     selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
