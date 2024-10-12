@@ -57,8 +57,9 @@
 
     
     selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
+
+    //Changing position of the locator
     loc.style.transform= `translate(${x}px, -${box.height - y}px)`;
-    loc.style.backgroundColor=`${selectedCol}`;
 
   }
 
@@ -153,7 +154,7 @@
       <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
         
       </canvas>
-      <div class="locator" bind:this={loc}></div>
+      <div class="locator" bind:this={loc} style= "background-color: {selectedCol}"></div>
      </div>
    
   </div>
