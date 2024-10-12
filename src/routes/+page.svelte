@@ -17,6 +17,22 @@
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
   
 
+  function updateLocatorPosition() {
+  
+  hsvColor = chroma(selectedCol).hsv();
+  
+  sat = Math.round(hsvColor[1] * 100);
+  val = Math.round(hsvColor[2] * 100);
+
+  const x = (sat / 100) * box.width;
+  const y = (1 - val / 100) * box.height; 
+
+  loc.style.transform = `translate(${x}px, -${box.height-y}px)`;
+
+  loc.style.backgroundColor = selectedCol;
+}
+
+
   function Enable(e){
     isDragging = 1;
 
@@ -37,6 +53,7 @@
     const hslValues = hslCol.split(',').map(v => parseFloat(v.trim()));
     
     selectedCol = chroma.hsl(deg, hslValues[1] / 100, hslValues[2] / 100).hex();
+    updateLocatorPosition() ;
   }
 
 
@@ -68,27 +85,32 @@
   //converting all values to hex for uniformity
   function handleHex(e) {
     selectedCol = e.target.value;
+    updateLocatorPosition() ;
   }
 
   function handleRgb(e) {
     selectedCol = chroma(`rgb(${e.target.value})`).hex(); 
+    updateLocatorPosition() ;
   }
 
   function handleCmyk(e) {
     const cmykValues = e.target.value.split(',').map(v => parseFloat(v.trim()) / 100);
     selectedCol = chroma.cmyk(...cmykValues).hex(); 
+    updateLocatorPosition() ;
   }
 
   function handleHsl(e) {
     const hslValues = e.target.value.split(',').map(v => parseFloat(v.trim()));
     selectedCol = chroma.hsl(hslValues[0], hslValues[1] / 100, hslValues[2] / 100).hex(); 
     deg = hslValues[0];
+    updateLocatorPosition() ;
   }
 
   function handleHsv(e) {
     const hsvValues = e.target.value.split(',').map(v => parseFloat(v.trim()));
     selectedCol = chroma.hsv(hsvValues[0], hsvValues[1] / 100, hsvValues[2] / 100).hex();
     deg = hsvValues[0]; 
+    updateLocatorPosition() ;
   }
 
  
@@ -109,7 +131,7 @@
   // HSV (Black led to NaN value for H: hence that has been taken careof)
   hsvColor = chroma(selectedCol).hsv();
   hsvCol = `${Math.round(isNaN(hsvColor[0]) ? 0 : hsvColor[0])}°, ${Math.round(hsvColor[1] * 100)}%, ${Math.round(hsvColor[2] * 100)}%`;
-
+ 
 
   // HSL (Black led to NaN value for H: hence that has been taken careof)
   hslColor = chroma(selectedCol).hsl(); 
@@ -154,7 +176,7 @@
       <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
         
       </canvas>
-      <div class="locator" bind:this={loc} style= "background-color: {selectedCol}"></div>
+      <div class="locator" bind:this={loc} style= "background-color: {selectedCol};"></div>
      </div>
    
   </div>
