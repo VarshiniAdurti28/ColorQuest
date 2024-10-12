@@ -135,3 +135,12 @@ h1{
   text-align: center;
   margin-bottom: 5px;
 }
+
+.locator{
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  border-color: white;
+  border-width: 2px;
+  border-style: solid;
+}

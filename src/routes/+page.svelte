@@ -124,6 +124,12 @@
   @import './style.css';
 </style>
 
+
+<head>
+  <title>Color Picker</title>
+  
+</head>
+
 <div class= "colorPicker">
   <h1>Color Picker</h1>
   <div class= "colors">
@@ -139,7 +145,7 @@
 
      <!-- Handling drag selector using mousedown, mouseup, mousemove options -->
     <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
-      
+      <div class="locator"></div>
     </canvas>
   </div>
 
