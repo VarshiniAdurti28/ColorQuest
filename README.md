@@ -45,6 +45,3 @@ https://color-quest-zeta.vercel.app/
 - Learnt how color conversion works, and was thus introduced to a new package called Chroma JS for the same.
 - I also realised how important it is to track down the impact of any change in one particular element in all other elements of the page. Often, I would analyse on what a particular change to the properties of a particular color codes, would result in other color codes of my project.
 
-
-
-- 
