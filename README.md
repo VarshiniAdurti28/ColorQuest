@@ -5,12 +5,21 @@ Build a HSV-based color picker application similar to Google Color Picker, using
 
 HTML, CSS, Javascript, Svelte, Chroma-js (For Color Conversions)
 
+
 ## Installation Steps:
+Note: the main file page.svelte lies in the path src/routes/page.svelte
 
 - Clone this repository on your machine.
 - Open terminal after navigating into the cloned repo (using cd)
 - use the command to start a local host server: npm run dev -- --open
 - The ColorQuest color picker is opened now on one of your browsers!
+
+- One can also skip all of these and try out the Vercel Deployment to check out a quick demo of the page!
+
+  
+## Deployment on Vercel: 
+https://color-quest-zeta.vercel.app/
+
 
 ## Features:
 
@@ -36,8 +45,6 @@ HTML, CSS, Javascript, Svelte, Chroma-js (For Color Conversions)
 - Learnt how color conversion works, and was thus introduced to a new package called Chroma JS for the same.
 - I also realised how important it is to track down the impact of any change in one particular element in all other elements of the page. Often, I would analyse on what a particular change to the properties of a particular color codes, would result in other color codes of my project.
 
-  
 
-## Deployment on Vercel
 
 - 
