@@ -1,6 +1,26 @@
 ## Problem Statement:
 Build a HSV-based color picker application similar to Google Color Picker, using Svelte. The picker should allow all three degrees of freedom (as in the Google Picker - hue with bottom slider, saturation on horizontal axis, value on vertical axis); any layout can be used to achieve this. It should also support 5 color formats (HEX, RGB, CMYK, HSL, HSV), allowing the user to input a value in any of these formats to change the selected color. Clicking and dragging the mouse on the slider or picker should also change all 5 values in real time.
 
+## Languages/Frameworks Used:
+
+HTML, CSS, Javascript, Svelte, Chroma-js (For Color Conversions)
+
+## Installation Steps:
+
+- Clone this repository on your machine.
+- Open terminal after navigating into the cloned repo (using cd)
+- use the command to start a local host server: npm run dev -- --open
+- The ColorQuest color picker is opened now on one of your browsers!
+
+## Features:
+
+- Responsive Web Design which adjusts accordingly on all devices.
+- Properly Aligned Styling
+- All features of Google COlor Picker have been implemented:
+    - Drag Selector for selecting hue in HSL/HSV
+    - A Gradient Selector with drag/ pick and drop select option
+    - Real-time changing display of HSL, HSV, HEX, CMYK and RGB values (With Shadow Effect on hovering)
+    - Change in any of the color codes converts the remaining color codes in real-time
 
 
 ## Resources Used:
@@ -9,6 +29,15 @@ Build a HSV-based color picker application similar to Google Color Picker, using
 - Chroma js documentation: https://gka.github.io/chroma.js/
 - HTML CSS help : https://www.w3schools.com/
 
+
+## Experience Gained:
+
+- I was not familiar to Svelte, so learnt basics of Svelte first. It was a fun experience as svelte binds all the elements together and makes them reactive. Svelte gave me the freedom to alter properties of elements on the page as and when required. 
+- Learnt how color conversion works, and was thus introduced to a new package called Chroma JS for the same.
+- I also realised how important it is to track down the impact of any change in one particular element in all other elements of the page. Often, I would analyse on what a particular change to the properties of a particular color codes, would result in other color codes of my project.
+
   
 
-Deployment on Vercel: 
+## Deployment on Vercel
+
+- 
