@@ -6,6 +6,7 @@
   // initially set to red 
   let selectedCol ="#ff0000"; 
   let box, sat, val ;
+  let loc;
   
   let deg= 0;
   let isDragging = 0;
@@ -53,8 +54,8 @@
 
     
     selectedCol = chroma.hsv(deg,  sat/100, val/100).hex();
-
-  
+    loc.style.transform= `translate(${x}px, -${box.height - y}px)`;
+    loc.style.backgroundColor=`${selectedCol}`;
 
   }
 
@@ -144,9 +145,14 @@
      and not the ones specified in css -->
 
      <!-- Handling drag selector using mousedown, mouseup, mousemove options -->
-    <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
-      <div class="locator"></div>
-    </canvas>
+    
+     <div class="wrapper">
+      <canvas class= "GradSelector" width= 450px height= 250px style= "--grad-color: {hsvColor[0]}" bind:this={box} on:mousedown = {Enable} on:mousemove= {getCoordinates} on:mouseup= {Disable}>
+        
+      </canvas>
+      <div class="locator" bind:this={loc}></div>
+     </div>
+   
   </div>
 
   

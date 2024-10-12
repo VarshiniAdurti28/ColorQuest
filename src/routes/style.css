@@ -136,11 +136,17 @@ h1{
   margin-bottom: 5px;
 }
 
+.wrapper{
+  position: relative;
+}
+
 .locator{
-  width: 2px;
-  height: 2px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  border-color: white;
+  border-color: rgb(254, 251, 251);
   border-width: 2px;
   border-style: solid;
+  transform: translate(400px, -200px);
+  position: absolute;
 }
