@@ -2,6 +2,7 @@
 body{
   display: flex;
   align-items: center;
+  text-align: center;
 
 }
 
@@ -150,4 +151,16 @@ h1{
   transform: translate(400px, -200px);
   position: absolute;
   /* background-color: var(--grad-color); */
+}
+
+.voice{
+  margin: 10px;
+  font-size: 20px;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.voice:hover{
+  cursor: pointer;
+   box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.35); 
 }

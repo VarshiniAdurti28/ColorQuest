@@ -1,5 +1,7 @@
 <script>
   //chroma.js library for the conversions
+
+  import { onMount } from "svelte";
   import chroma from 'chroma-js';
 
 
@@ -12,10 +14,29 @@
   let isDragging = 0;
   let hsvColor=[];
   let hslColor=[];
-  
+
+  let recognition;
 
   let rgbCol = '', cmykCol='', hslCol='', hsvCol='', hexCol='';
-  
+
+
+  onMount(() => {
+    // Only access window properties after component is mounted
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+
+    // Event handler for speech recognition results
+    recognition.onresult = (event) => {
+      const color = event.results[0][0].transcript.trim().toLowerCase();
+      selectedCol = color;  // Update the color based on voice input
+    };
+  });
+
+
+  function startListen() {
+    recognition.start();
+  }
+
 
   function updateLocatorPosition() {
   
@@ -115,9 +136,7 @@
 
  
   $: {
-   
   
- 
   hexCol= selectedCol;
   //RGB
   let rgbColor = chroma(selectedCol).rgb(); 
@@ -159,6 +178,7 @@
 
 <div class= "colorPicker">
   <h1>Color Picker</h1>
+  <button class="voice" on:click={startListen}>Start Speaking!</button>
   <div class= "colors">
     <!-- A div to display what color we have chosen! -->
     <div class= "dispColor" style= "--pick-color: {selectedCol}">
